@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:money_book/logic/auth.dart';
 import 'package:money_book/screens/loginPage.dart';
 import 'package:money_book/screens/registerPage.dart';
-import 'homePage.dart';
 
 // ignore: camel_case_types
 class welcomePage extends StatefulWidget {

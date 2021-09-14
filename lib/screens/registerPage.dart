@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:money_book/components/constant.dart';
 import 'package:money_book/components/roundButton.dart';
 import 'package:money_book/logic/auth.dart';
+import 'package:money_book/screens/wrapper.dart';
 
-// import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: camel_case_types
 class registerScreen extends StatefulWidget {
@@ -16,8 +16,10 @@ class registerScreen extends StatefulWidget {
 // ignore: camel_case_types
 class _registerScreenState extends State<registerScreen> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,31 +48,63 @@ class _registerScreenState extends State<registerScreen> {
             SizedBox(
               height: 48.0,
             ),
-            TextField(
-              keyboardType: TextInputType.emailAddress,
-              textAlign: TextAlign.center,
-              onChanged: (value) {
-                setState(() => email = value);
-              },
-              decoration:
-                  vTextFileDecoration.copyWith(hintText: 'Enter Your Email'),
-            ),
             SizedBox(height: 8.0),
-            TextField(
-              obscureText: true,
-              textAlign: TextAlign.center,
-              onChanged: (value) {
-                setState(() => password = value);
-              },
-              decoration:
-                  vTextFileDecoration.copyWith(hintText: 'Enter Your Password'),
+            Container(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      validator: (value) =>
+                          value!.isEmpty ? 'Enter an email' : null,
+                      keyboardType: TextInputType.emailAddress,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        setState(() => email = value);
+                      },
+                      decoration: vTextFileDecoration.copyWith(
+                          hintText: 'Enter Your Email'),
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      validator: (value) =>
+                          value!.isEmpty ? 'Enter a password' : null,
+                      obscureText: true,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        setState(() => password = value);
+                      },
+                      decoration: vTextFileDecoration.copyWith(
+                          hintText: 'Enter Your Password 6+ chars long'),
+                    ),
+                  ],
+                ),
+              ),
             ),
             RoundButton(
                 buttonTitle: 'Register',
-                onPress: () async {},
+                onPress: () async {
+                  if (_formKey.currentState!.validate()) {
+                    print(email);
+                    print(password);
+                  }
+                  dynamic result =
+                      await _auth.registerEmailnPass(email, password);
+                  Navigator.pushNamed(context, Wrapper.id);
+                  if (result == null) {
+                    setState(() => error = 'please supply a valid email');
+                  }
+                },
                 warna: Colors.blueGrey),
-            
-            
+            SizedBox(
+              height: 12.0,
+            ),
+            Center(
+                child: Text(
+              error,
+              style:
+                  TextStyle(fontSize: 14.0, color: Colors.redAccent.shade700),
+            )),
           ],
         ),
       ),
