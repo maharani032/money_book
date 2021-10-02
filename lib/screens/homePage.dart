@@ -10,50 +10,75 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Color(0xff79B4B7),
-          title: Text(
-            "Money Book",
-            style: GoogleFonts.pacifico(
-              fontSize: 25.0,
-            ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Color(0xff79B4B7),
+        title: Text(
+          "Money Book",
+          style: GoogleFonts.pacifico(
+            fontSize: 25.0,
           ),
-          actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          height: 200,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              IconBottomSheet(
-                                label: 'Update Profile',
-                                onPress: () {
+        ),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        height: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            IconBottomSheet(
+                              label: 'Update Profile',
+                              onPress: () {
+                                Navigator.pop(context, 'close');
+                              },
+                              icon: Icons.account_circle,
+                            ),
+                            IconBottomSheet(
+                                label: 'Sign Out',
+                                onPress: () async {
+                                  await _auth.logOut();
                                   Navigator.pop(context, 'close');
                                 },
-                                icon: Icons.account_circle,
-                              ),
-                              IconBottomSheet(
-                                  label: 'Sign Out',
-                                  onPress: () async {
-                                    await _auth.logOut();
-                                    Navigator.pop(context, 'close');
-                                  },
-                                  icon: Icons.logout)
-                            ],
-                          ),
-                        );
-                      });
-                })
-          ],
-        ));
+                                icon: Icons.logout)
+                          ],
+                        ),
+                      );
+                    });
+              })
+        ],
+      ),
+      body:Column(
+        children:[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            Container(
+              child: Text(
+                'Pengeluaran',
+                style: TextStyle(
+                  fontSize: 20,
+                  )
+                  ,)
+            ),
+            Container(
+              child: Text(
+                'Pemasukan',
+                style: TextStyle(
+                  fontSize: 20,
+                  )
+                  ,)
+            ),
+        ]),
+        ])
+    );
+    
   }
 }

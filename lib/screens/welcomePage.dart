@@ -62,24 +62,30 @@ class _welcomePageState extends State<welcomePage>
                 },
                 warna: Colors.blueAccent.shade400),
             Center(
-                  child: Text(
-                  'Or',
-                  style: GoogleFonts.lato(),
-                  ),
-                ),
-                RoundButton(
-                buttonTitle: 'Log In as Guest',
+              child: Text(
+                'Or',
+                style: GoogleFonts.lato(),
+              ),
+            ),
+            RoundButton(
+                buttonTitle: 'Log In with Google',
                 onPress: () async {
-                  dynamic result = await _auth.logInanon();
+                  dynamic result = await _auth.logInwGoogle();
                   if (result == null) {
-                    print('error Log In as anom');
+                    print('log in with google err');
                   } else {
-                    print('sign In');
-                    print(result.uid);
-                    
+                    print('Log In with google sucess');
                   }
+                  // dynamic result = await _auth.logInanon();
+                  // if (result == null) {
+                  //   print('error Log In as anom');
+                  // } else {
+                  //   print('sign In');
+                  //   print(result.uid);
+
+                  // }
                 },
-                warna: Colors.black54)
+                warna: Colors.red)
           ],
         ),
       ),

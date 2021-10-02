@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_book/components/constant.dart';
-import 'package:money_book/logic/auth.dart';
+// import 'package:money_book/logic/auth.dart';
 import '../components/roundButton.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,7 +11,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final AuthService _auth = AuthService();
   String email = '';
   String password = '';
   @override
