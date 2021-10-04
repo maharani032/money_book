@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_book/logic/auth.dart';
+import 'package:money_book/services/auth.dart';
 import 'package:money_book/models/MyUser.dart';
 import 'package:money_book/screens/homePage.dart';
 import 'package:money_book/screens/loginPage.dart';

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_book/components/constant.dart';
 import 'package:money_book/components/roundButton.dart';
-import 'package:money_book/logic/auth.dart';
+import 'package:money_book/services/auth.dart';
 import 'package:money_book/screens/wrapper.dart';
-
 
 // ignore: camel_case_types
 class registerScreen extends StatefulWidget {
@@ -19,6 +18,7 @@ class _registerScreenState extends State<registerScreen> {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  String fullname = '';
   String error = '';
   @override
   Widget build(BuildContext context) {
@@ -56,6 +56,18 @@ class _registerScreenState extends State<registerScreen> {
                   children: [
                     TextFormField(
                       validator: (value) =>
+                          value!.isEmpty ? 'Enter your fullname' : null,
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        setState(() => fullname = value);
+                      },
+                      decoration: vTextFileDecoration.copyWith(
+                          hintText: 'Enter Your fullname'),
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      validator: (value) =>
                           value!.isEmpty ? 'Enter an email' : null,
                       keyboardType: TextInputType.emailAddress,
                       textAlign: TextAlign.center,
@@ -87,9 +99,10 @@ class _registerScreenState extends State<registerScreen> {
                   if (_formKey.currentState!.validate()) {
                     print(email);
                     print(password);
+                    print(fullname);
                   }
-                  dynamic result =
-                      await _auth.registerEmailnPass(email, password);
+                  dynamic result = await _auth.registermail(
+                      email: email, password: password, fullname: fullname);
                   Navigator.pushNamed(context, Wrapper.id);
                   if (result == null) {
                     setState(() => error = 'please supply a valid email');

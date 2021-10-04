@@ -1,9 +1,6 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:money_book/logic/auth.dart';
-import 'package:money_book/components/iconButtonsheet.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:money_book/home/page1.dart';
 import 'package:money_book/home/page2.dart';
@@ -20,7 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _page = 0;
  
   final List<Widget> _children = [MyPage1(), MyPage2(), MyPage3()];
-  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
