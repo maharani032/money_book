@@ -4,8 +4,6 @@ import 'package:money_book/services/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyPage3 extends StatefulWidget {
-  MyPage3({Key? key}) : super(key: key);
-
   @override
   _MyPage3State createState() => _MyPage3State();
 }
@@ -20,22 +18,53 @@ class _MyPage3State extends State<MyPage3> {
   }
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Container(child: Text(_username)),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+      Container(
+        height: 100,
+        child: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+    
+            children: [
+              Icon(Icons.person,size:50),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    _username,
+                    style: TextStyle(fontSize: 20),
+                    ),
+                ),
+              ),
+            ],
+          ),
+        )
+          ),
+          SizedBox(
+            height: 10,
+          ),
       GestureDetector(
         onTap: () async {
-          // print(auth.currentUser);
           await _auth.logOut();
         },
         child: Container(
-            color: Colors.blue,
             height: 50,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Log Out',
-                style: TextStyle(fontSize: 20),
-              ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Icon(Icons.logout,size: 50,),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Log Out',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+              ],
             )),
       )
     ]);
@@ -45,7 +74,7 @@ class _MyPage3State extends State<MyPage3> {
 Future<String> getUserName() async {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final CollectionReference users =
-      FirebaseFirestore.instance.collection('users');
+  FirebaseFirestore.instance.collection('users');
   final String uid = auth.currentUser!.uid;
   final result = await users.doc(uid).get();
   return result['fullname'];
