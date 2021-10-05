@@ -1,21 +1,22 @@
 class ItemModel {
-  final String id;
-  final String namaItem;
-  final int stok;
-  final int hargaBeli;
+  String userId;
+  String namaItem;
+  String stok;
+  String hargaBeli;
   ItemModel(
-      {required this.id,
+      {
       required this.namaItem,
       required this.stok,
-      required this.hargaBeli});
-  ItemModel.fromData(Map<String, dynamic> data)
-      : id = data['id'],
-        namaItem = data['namaItem'],
-        stok = data['stok'],
-        hargaBeli = data['hargaBeli'];
-  Map<String, dynamic> toJson() {
+      required this.hargaBeli,
+      required this.userId});
+  // ItemModel.fromData(Map<String, dynamic> data)
+  //     : userId=data['userId'],
+  //       namaItem = data['namaItem'],
+  //       stok = data['stok'],
+  //       hargaBeli = data['hargaBeli'];
+  Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'userId':userId,
       'namaItem': namaItem,
       'stok': stok,
       'hargaBeli': hargaBeli
