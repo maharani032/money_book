@@ -1,10 +1,12 @@
 class ItemModel {
   String userId;
+  String id;
   String namaItem;
-  String stok;
-  String hargaBeli;
+  int stok;
+  int hargaBeli;
   ItemModel(
       {
+      required this.id,
       required this.namaItem,
       required this.stok,
       required this.hargaBeli,
@@ -16,7 +18,8 @@ class ItemModel {
   //       hargaBeli = data['hargaBeli'];
   Map<String, dynamic> toMap() {
     return {
-      'userId':userId,
+      'id':id,
+      'userId': userId,
       'namaItem': namaItem,
       'stok': stok,
       'hargaBeli': hargaBeli

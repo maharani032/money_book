@@ -13,8 +13,8 @@ class _AddItemState extends State<AddItem> {
   @override
   Widget build(BuildContext context) {
     String namaItem='';
-    String stok='';
-    String hargaBeli='';
+    int stok=0;
+    int hargaBeli=0;
     final ItemDatabase _itemDB = ItemDatabase();
     return Container(
       padding:
@@ -42,13 +42,13 @@ class _AddItemState extends State<AddItem> {
               inputFieldItem(
                   nameInput: 'Harga Item',
                   value: (value) {
-                    hargaBeli = value;
+                    hargaBeli = int.parse(value);
                   },
                   typeInput: TextInputType.number),
               inputFieldItem(
                   nameInput: 'Stok Item',
                   value: (value) {
-                    stok = value;
+                    stok = int.parse(value);
                   },
                   typeInput: TextInputType.number),
               // ignore: deprecated_member_use

@@ -12,19 +12,30 @@ class ItemDatabase {
     return result['id'];
   }
 
-  
   CollectionReference itemDB = FirebaseFirestore.instance.collection('items');
-  
+
   // Future CreateIdItem()
   Future addItem(
       {required String namaItem,
-      required String stok,
-      required String hargaItem}) async {
-        FirebaseAuth user = FirebaseAuth.instance;
-        String userId= user.currentUser!.uid;
-    return await itemDB.add(ItemModel(
-      
-        namaItem: namaItem, stok: stok, hargaBeli: hargaItem, userId: userId).toMap()).then((value) => print('item be add')).catchError((err)=>print('err'));
+      required int stok,
+      required int hargaItem}) async {
+    FirebaseAuth user = FirebaseAuth.instance;
+    String userId = user.currentUser!.uid;
+    return await itemDB
+        .add(ItemModel(
+                id: '',
+                namaItem: namaItem,
+                stok: stok,
+                hargaBeli: hargaItem,
+                userId: userId)
+            .toMap())
+        .then((value) => {
+              itemDB.doc(value.id).update({
+                'id': value.id,
+                })
+            })
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((err) => print('err'));
   }
   // Future addItemStore(ItemModel item) async {
   //   try {
