@@ -18,7 +18,7 @@ class ItemDatabase {
   Future addItem(
       {required String namaItem,
       required int stok,
-      required int hargaItem}) async {
+      required int hargaBeli}) async {
     FirebaseAuth user = FirebaseAuth.instance;
     String userId = user.currentUser!.uid;
     return await itemDB
@@ -26,7 +26,7 @@ class ItemDatabase {
                 id: '',
                 namaItem: namaItem,
                 stok: stok,
-                hargaBeli: hargaItem,
+                hargaBeli: hargaBeli,
                 userId: userId)
             .toMap())
         .then((value) => {
@@ -38,7 +38,7 @@ class ItemDatabase {
         .catchError((err) => print('err'));
   }
 
-  Future getItemByuserId(String userId) async {
-    return itemDB.where('userId', isEqualTo: userId);
-  }
+  // Future getItemsByuserId(String userId) async {
+  //   return itemDB.where('userId', isEqualTo: userId);
+  // }
 }

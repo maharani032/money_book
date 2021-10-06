@@ -96,7 +96,7 @@ class _AddItemState extends State<AddItem> {
                         .addItem(
                             namaItem: namaItem,
                             stok: int.parse(stok),
-                            hargaItem: int.parse(hargaBeli)
+                            hargaBeli: int.parse(hargaBeli)
                             )
                         .then((result) {
                       Navigator.pop(context);

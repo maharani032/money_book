@@ -21,6 +21,7 @@ class inputFieldItem extends StatelessWidget {
           style: TextStyle(fontSize: 20.0),
         ),
         TextField(
+          
           controller: controller,
           autofocus: true,
           keyboardType: typeInput,
