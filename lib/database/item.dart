@@ -32,32 +32,13 @@ class ItemDatabase {
         .then((value) => {
               itemDB.doc(value.id).update({
                 'id': value.id,
-                })
+              })
             })
         // ignore: invalid_return_type_for_catch_error
         .catchError((err) => print('err'));
   }
-  // Future addItemStore(ItemModel item) async {
-  //   try {
-  //     print('coba add item di firestore');
-  //     return await itemDB.doc(item.id).set(item.toJson());
-  //   } catch (e) {
-  //     print('error di firestore item');
-  //     return e;
-  //   }
-  // }
 
-  // Future addItem(
-  //     {required String namaItem,
-  //     required String stok,
-  //     required String hargaItem}) async {
-
-  // itemDB.add()
-  //   // await addItemStore(ItemModel(
-  //   //     id: ,
-  //   //     namaItem: namaItem,
-  //   //     stok: stok,
-  //   //     hargaBeli: hargaItem,
-  //   //     userId: userId));
-  // }
+  Future getItemByuserId(String userId) async {
+    return itemDB.where('userId', isEqualTo: userId);
+  }
 }

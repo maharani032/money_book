@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 class inputFieldItem extends StatelessWidget {
   // inputFieldItem({required this.name, required)
   final String nameInput;
-  final ValueChanged<String>? value;
+  final ValueChanged? value;
   final TextInputType typeInput;
-  inputFieldItem({required this.nameInput,required this.value, required this.typeInput});
+  final TextEditingController controller;
+  inputFieldItem(
+      {
+         required this.controller ,required this.nameInput, required this.value, required this.typeInput});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +21,11 @@ class inputFieldItem extends StatelessWidget {
           style: TextStyle(fontSize: 20.0),
         ),
         TextField(
+          controller: controller,
           autofocus: true,
           keyboardType: typeInput,
           textAlign: TextAlign.center,
-          onChanged:value,
+          onChanged: value,
         ),
       ],
     );
