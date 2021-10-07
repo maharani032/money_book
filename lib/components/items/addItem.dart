@@ -9,6 +9,8 @@ class AddItem extends StatefulWidget {
 }
 
 class _AddItemState extends State<AddItem> {
+    final _formKey = GlobalKey<FormState>();
+
   final _namaInput = TextEditingController();
   final _hargaInput = TextEditingController();
   final _stokInput = TextEditingController();
@@ -60,54 +62,62 @@ class _AddItemState extends State<AddItem> {
           ),
         ),
         child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              inputFieldItem(
-                nameInput: 'nama Item',
-                value: (value) {
-                  namaItem = value;
-                },
-                typeInput: TextInputType.text,
-                controller: _namaInput,
-              ),
-              inputFieldItem(
-                nameInput: 'Harga Item',
-                value: (value) {
-                  hargaBeli = value;
-                },
-                typeInput: TextInputType.number,
-                controller: _hargaInput,
-              ),
-              inputFieldItem(
-                nameInput: 'Stok Item',
-                value: (value) {
-                  stok = value;
-                },
-                typeInput: TextInputType.number,
-                controller: _stokInput,
-              ),
-              
-              // ignore: deprecated_member_use
-              FlatButton(
-                  color: Colors.blue[200],
-                  onPressed: () async {
-                    await _itemDB
-                        .addItem(
-                            namaItem: namaItem,
-                            stok: int.parse(stok),
-                            hargaBeli: int.parse(hargaBeli)
-                            )
-                        .then((result) {
-                      Navigator.pop(context);
-                    }).catchError((onError) {
-                      print(onError);
-                      Navigator.pop(context);
-                    });
+          child: Form(
+             key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                inputFieldItem(
+                  nameInput: 'nama Item',
+                  value: (value) {
+                    namaItem = value;
                   },
-                  child: Text('add Item'))
-                  
-            ],
+                  typeInput: TextInputType.text,
+                  controller: _namaInput,
+                ),
+                inputFieldItem(
+                  nameInput: 'Harga Item',
+                  value: (value) {
+                    hargaBeli = value;
+                  },
+                  typeInput: TextInputType.number,
+                  controller: _hargaInput,
+                ),
+                inputFieldItem(
+                  nameInput: 'Stok Item',
+                  value: (value) {
+                    stok = value;
+                  },
+                  typeInput: TextInputType.number,
+                  controller: _stokInput,
+                ),
+                
+                // ignore: deprecated_member_use
+                FlatButton(
+                    color: Colors.blue[200],
+                    onPressed: () async {
+                      if(_formKey.currentState!.validate()){
+                        await _itemDB
+                          .addItem(
+                              namaItem: namaItem,
+                              stok: int.parse(stok),
+                              hargaBeli: int.parse(hargaBeli)
+                              )
+                          .then((result) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Update Data')),
+                      );
+                        Navigator.pop(context);
+                      }).catchError((onError) {
+                        print(onError);
+                        Navigator.pop(context);
+                      });
+                      }
+                    },
+                    child: Text('add Item'))
+                    
+              ],
+            ),
           ),
         ),
       ),

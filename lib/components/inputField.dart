@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 // ignore: camel_case_types
 class inputFieldItem extends StatelessWidget {
   // inputFieldItem({required this.name, required)
+  final requiredValidator = RequiredValidator(errorText: 'this field is required');  
   final String nameInput;
   final ValueChanged? value;
   final TextInputType typeInput;
@@ -20,8 +22,8 @@ class inputFieldItem extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20.0),
         ),
-        TextField(
-          
+        TextFormField(
+          validator:requiredValidator,
           controller: controller,
           autofocus: true,
           keyboardType: typeInput,

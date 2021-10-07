@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../inputField.dart';
 
-// final _firestore = FirebaseFirestore.instance;
 CollectionReference items = FirebaseFirestore.instance.collection('items');
 
 class UpdateItem extends StatefulWidget {
@@ -14,39 +13,10 @@ class UpdateItem extends StatefulWidget {
 }
 
 class _UpdateItemState extends State<UpdateItem> {
-  // TextEditingController _namaInput = TextEditingController();
-  // TextEditingController _hargaInput = TextEditingController();
-  // TextEditingController _stokInput = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   String namaItem = '';
   String stok = '';
   String hargaBeli = '';
-  // @override
-  // void initState() {
-  //   _namaInput.addListener(() {
-  //     setState(() {
-  //       namaItem = _namaInput.text;
-  //     });
-  //   });
-  //   _hargaInput.addListener(() {
-  //     setState(() {
-  //       hargaBeli = _hargaInput.text;
-  //     });
-  //   });
-  //   _stokInput.addListener(() {
-  //     setState(() {
-  //       stok = _stokInput.text;
-  //     });
-  //   });
-  //   super.initState();
-  // }
-
-  // @override
-  // void dispose() {
-  //   _namaInput.dispose();
-  //   _hargaInput.dispose();
-  //   _stokInput.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +34,10 @@ class _UpdateItemState extends State<UpdateItem> {
             );
           }
           //final item = snapshot.data!['namaItem'];
-          
+
           namaItem = snapshot.data!['namaItem'];
-          hargaBeli=snapshot.data!['hargaBeli'].toString();
-          stok=snapshot.data!['stok'].toString();
+          hargaBeli = snapshot.data!['hargaBeli'].toString();
+          stok = snapshot.data!['stok'].toString();
           return Container(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -81,7 +51,8 @@ class _UpdateItemState extends State<UpdateItem> {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: Container(
+              child: Form(
+                key: _formKey,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -113,19 +84,25 @@ class _UpdateItemState extends State<UpdateItem> {
                       FlatButton(
                           color: Colors.blue[200],
                           onPressed: () async {
-                            await FirebaseFirestore.instance
-                                .collection('items')
-                                .doc(id)
-                                .update({
-                              'namaItem': namaItem,
-                              'stok': int.parse(stok),
-                              'hargaBeli': int.parse(hargaBeli)
-                            }).then((result) {
-                              Navigator.pop(context);
-                            }).catchError((onError) {
-                              print(onError);
-                              Navigator.pop(context);
-                            });
+                            if (_formKey.currentState!.validate()) {
+                              await FirebaseFirestore.instance
+                                  .collection('items')
+                                  .doc(id)
+                                  .update({
+                                'namaItem': namaItem,
+                                'stok': int.parse(stok),
+                                'hargaBeli': int.parse(hargaBeli)
+                              }).then((result) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Processing Data')));
+                                Navigator.pop(context);
+                              }).catchError((onError) {
+                                print(onError);
+                                Navigator.pop(context);
+                              });
+                            }
+                            
                           },
                           child: Text('update Item'))
                     ]),

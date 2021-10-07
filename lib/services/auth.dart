@@ -13,6 +13,7 @@ class AuthService {
   MyUser? _userFromFirebaseUser(User user) {
     return MyUser(uid: user.uid);
   }
+
 // auth change user stream
   Stream<MyUser?> get user {
     return _auth
@@ -32,6 +33,22 @@ class AuthService {
   //   }
   // }
   // login in with email& password
+  Future logInUser({required String email, required String password}) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user!;
+      return _userFromFirebaseUser(user);
+    } on FirebaseAuthException catch (err) {
+      if (err.code == 'user-not-found') {
+        print('No user found for that email');
+        return null;
+      } else if (err.code == 'wrong-password') {
+        print('wrong password');
+        return null;
+      }
+    }
+  }
 
   //register with email & password
   Future createUser(
@@ -57,7 +74,7 @@ class AuthService {
       {required String email,
       required String password,
       required String fullname}) async {
-        await createUser(email: email, password: password, fullname: fullname);
+    await createUser(email: email, password: password, fullname: fullname);
   }
 
   // sign in with google
@@ -66,7 +83,7 @@ class AuthService {
       print('masuk try');
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
-      
+
       final GoogleSignInAuthentication? googleSignInAuthentication =
           await googleSignInAccount!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(

@@ -103,6 +103,9 @@ class _registerScreenState extends State<registerScreen> {
                   }
                   dynamic result = await _auth.registermail(
                       email: email, password: password, fullname: fullname);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Data')),
+                  );
                   Navigator.pushNamed(context, Wrapper.id);
                   if (result == null) {
                     setState(() => error = 'please supply a valid email');
