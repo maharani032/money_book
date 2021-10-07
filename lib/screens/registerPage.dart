@@ -100,16 +100,19 @@ class _registerScreenState extends State<registerScreen> {
                     print(email);
                     print(password);
                     print(fullname);
+                    dynamic result = await _auth.registermail(
+                        email: email, password: password, fullname: fullname);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+                    Navigator.pushNamed(context, Wrapper.id);
+                    if (result == null) {
+                      setState(() => error = 'please supply a valid email');
+                    }
                   }
-                  dynamic result = await _auth.registermail(
-                      email: email, password: password, fullname: fullname);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Data Invalid')),
                   );
-                  Navigator.pushNamed(context, Wrapper.id);
-                  if (result == null) {
-                    setState(() => error = 'please supply a valid email');
-                  }
                 },
                 warna: Colors.blueGrey),
             SizedBox(

@@ -90,7 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                     Navigator.pushNamed(context, Wrapper.id);
                   }
-                  
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Data Invalid')),
+                  );
                 },
                 warna: Colors.blueGrey),
           ],
