@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_book/credits/ListCredit.dart';
 
 class MyPage1 extends StatefulWidget {
   @override
@@ -8,6 +9,11 @@ class MyPage1 extends StatefulWidget {
 class _MyPage1State extends State<MyPage1> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body:Container(
+        decoration: BoxDecoration(),
+        child: ListCredit(),
+      ),
+      );
   }
 }

@@ -12,6 +12,7 @@ class AddCredit extends StatefulWidget {
 
 class _AddCreditState extends State<AddCredit> {
   // ignore: unused_field
+  var formatNum = NumberFormat('###,###,###,###');
   final format = DateFormat("dd-mm-yyyy");
   final _formKey = GlobalKey<FormState>();
   final _namaCredit = TextEditingController();
@@ -28,6 +29,7 @@ class _AddCreditState extends State<AddCredit> {
     });
     _jumlahCredit.addListener(() {
       setState(() {
+        // _jumlahCredit.text = formatNum.format(jumlahCredit).replaceAll('', "");
         jumlahCredit = _jumlahCredit.text;
       });
     });
