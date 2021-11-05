@@ -50,46 +50,48 @@ class _registerScreenState extends State<registerScreen> {
             ),
             SizedBox(height: 8.0),
             Container(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      validator: (value) =>
-                          value!.isEmpty ? 'Enter your fullname' : null,
-                      keyboardType: TextInputType.text,
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        setState(() => fullname = value);
-                      },
-                      decoration: vTextFileDecoration.copyWith(
-                          hintText: 'Enter Your fullname'),
-                    ),
-                    SizedBox(height: 10.0),
-                    TextFormField(
-                      validator: (value) =>
-                          value!.isEmpty ? 'Enter an email' : null,
-                      keyboardType: TextInputType.emailAddress,
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        setState(() => email = value);
-                      },
-                      decoration: vTextFileDecoration.copyWith(
-                          hintText: 'Enter Your Email'),
-                    ),
-                    SizedBox(height: 10.0),
-                    TextFormField(
-                      validator: (value) =>
-                          value!.isEmpty ? 'Enter a password' : null,
-                      obscureText: true,
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        setState(() => password = value);
-                      },
-                      decoration: vTextFileDecoration.copyWith(
-                          hintText: 'Enter Your Password 6+ chars long'),
-                    ),
-                  ],
+              child: Flexible(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (value) =>
+                            value!.isEmpty ? 'Enter your fullname' : null,
+                        keyboardType: TextInputType.text,
+                        textAlign: TextAlign.center,
+                        onChanged: (value) {
+                          setState(() => fullname = value);
+                        },
+                        decoration: vTextFileDecoration.copyWith(
+                            hintText: 'Enter Your fullname'),
+                      ),
+                      SizedBox(height: 10.0),
+                      TextFormField(
+                        validator: (value) =>
+                            value!.isEmpty ? 'Enter an email' : null,
+                        keyboardType: TextInputType.emailAddress,
+                        textAlign: TextAlign.center,
+                        onChanged: (value) {
+                          setState(() => email = value);
+                        },
+                        decoration: vTextFileDecoration.copyWith(
+                            hintText: 'Enter Your Email'),
+                      ),
+                      SizedBox(height: 10.0),
+                      TextFormField(
+                        validator: (value) =>
+                            value!.isEmpty ? 'Enter a password' : null,
+                        obscureText: true,
+                        textAlign: TextAlign.center,
+                        onChanged: (value) {
+                          setState(() => password = value);
+                        },
+                        decoration: vTextFileDecoration.copyWith(
+                            hintText: 'Enter Your Password 6+ chars long'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

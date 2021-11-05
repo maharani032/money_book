@@ -51,26 +51,30 @@ class _LoginScreenState extends State<LoginScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  TextFormField(
-                    validator: requiredValidator,
-                    keyboardType: TextInputType.emailAddress,
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      setState(() => email = value);
-                    },
-                    decoration: vTextFileDecoration.copyWith(
-                        hintText: 'Enter Your Email'),
+                  Flexible(
+                    child: TextFormField(
+                      validator: requiredValidator,
+                      keyboardType: TextInputType.emailAddress,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        setState(() => email = value);
+                      },
+                      decoration: vTextFileDecoration.copyWith(
+                          hintText: 'Enter Your Email'),
+                    ),
                   ),
                   SizedBox(height: 8.0),
-                  TextFormField(
-                    validator: requiredValidator,
-                    obscureText: true,
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      setState(() => password = value);
-                    },
-                    decoration: vTextFileDecoration.copyWith(
-                        hintText: 'Enter Your Password'),
+                  Flexible(
+                    child: TextFormField(
+                      validator: requiredValidator,
+                      obscureText: true,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        setState(() => password = value);
+                      },
+                      decoration: vTextFileDecoration.copyWith(
+                          hintText: 'Enter Your Password'),
+                    ),
                   ),
                 ],
               ),

@@ -76,14 +76,7 @@ class _welcomePageState extends State<welcomePage>
                   } else {
                     print('Log In with google sucess');
                   }
-                  // dynamic result = await _auth.logInanon();
-                  // if (result == null) {
-                  //   print('error Log In as anom');
-                  // } else {
-                  //   print('sign In');
-                  //   print(result.uid);
-
-                  // }
+    
                 },
                 warna: Colors.red)
           ],

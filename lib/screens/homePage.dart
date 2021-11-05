@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _page = 0;
+  int _page = 1;
  
   final List<Widget> _children = [MyPage1(), MyPage2(), MyPage3()];
   @override
@@ -29,47 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
               fontSize: 25.0,
             ),
           ),
-          // actions: [
-          //   IconButton(
-          //       icon: Icon(
-          //         Icons.person,
-          //         color: Colors.white,
-          //       ),
-          //       onPressed: () {
-          //         showModalBottomSheet(
-          //             context: context,
-          //             builder: (context) {
-          //               return Container(
-          //                 height: 200,
-          //                 child: Column(
-          //                   crossAxisAlignment: CrossAxisAlignment.start,
-          //                   children: [
-          //                     IconBottomSheet(
-          //                       label: 'Update Profile',
-          //                       onPress: () {
-          //                         Navigator.pop(context, 'close');
-          //                       },
-          //                       icon: Icons.account_circle,
-          //                     ),
-          //                     IconBottomSheet(
-          //                         label: 'Sign Out',
-          //                         onPress: () async {
-          //                           await _auth.logOut();
-          //                           Navigator.pop(context, 'close');
-          //                         },
-          //                         icon: Icons.logout)
-          //                   ],
-          //                 ),
-          //               );
-          //             });
-          //       })
-          // ],
         ),
         bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: Color(0xff79B4B7),
+          index: 1,
           items: [
             Icon(Icons.account_balance_wallet, size: 30),
-            Icon(Icons.add_business_rounded, size: 30),
+            Icon(Icons.add, size: 30),
             Icon(Icons.account_circle_outlined, size: 30),
           ],
           onTap: (index) {

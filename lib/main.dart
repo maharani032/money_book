@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           Wrapper.id:(context)=>Wrapper(),
           registerScreen.id:(context)=>registerScreen(),
           LoginScreen.id:(context)=>LoginScreen(),
-          HomeScreen.id:(context)=>HomeScreen()
+          HomeScreen.id:(context)=>HomeScreen(),
         },
       ),
     );
