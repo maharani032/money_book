@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
+import 'package:money_book/credits/UpdateCredit.dart';
 
 class ListCredit extends StatefulWidget {
   @override
@@ -11,8 +12,10 @@ class ListCredit extends StatefulWidget {
 }
 
 class _ListCreditState extends State<ListCredit> {
-  var format=NumberFormat('###,000');
+  var format = NumberFormat('###,###,###,###');
   final FirebaseAuth user = FirebaseAuth.instance;
+  var formatter = new DateFormat('yyyy-MM-dd');
+
   final CollectionReference credits =
       FirebaseFirestore.instance.collection('credits');
   @override
@@ -39,7 +42,15 @@ class _ListCreditState extends State<ListCredit> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   final credit = snapshot.data!.docs[index];
-                  // final id = snapshot.data!.docs[index]['id'];
+                  // ignore: unused_local_variable
+                  var datecredit = credit['date'];
+                  String formatDate(DateTime datecredit) {
+                    final DateFormat formatter = DateFormat.yMMMMd('en_US');
+                    String date = formatter.format(datecredit);
+                    return date;
+                  }
+
+                  final id = snapshot.data!.docs[index]['id'];
                   return ListTile(
                     title: Container(
                       child: Column(
@@ -47,21 +58,46 @@ class _ListCreditState extends State<ListCredit> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Pengeluaran',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20
-                            ),
+                            credit['namaCredit'].toUpperCase(),
+                            style: TextStyle(fontSize: 20),
                           ),
-                          Text(credit['namaCredit'],
-                          style: TextStyle(
-                              fontSize: 16
-                            ),
+                          Text(
+                            format.format(credit['jumlah']).toString(),
+                            style: TextStyle(fontSize: 16),
                           ),
-                          Text(format.format(credit['jumlah']).toString(),
-                          style: TextStyle(
-                              fontSize: 16
-                            ),),
+                          Text(
+                            formatDate(credit['date'].toDate()),
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ButtonItems(
+                                    warna: Color(0xff54d179),
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context, 
+                                        builder: (context)=>SingleChildScrollView(
+                                          child: Container(
+                                            child: UpdateCredit(creditId:id),
+                                          ),
+                                        ));
+                                    },
+                                    ikon: Icons.drive_folder_upload_sharp),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                ButtonItems(
+                                    warna: Colors.red,
+                                    onTap: () {
+                                      FirebaseFirestore.instance
+                                          .collection('credits')
+                                          .doc(credit['id'])
+                                          .delete();
+                                    },
+                                    ikon: Icons.delete)
+                              ])
+
                           // Text(credit['date'].toString())
                         ],
                       ),
@@ -71,6 +107,31 @@ class _ListCreditState extends State<ListCredit> {
           }
         },
       ),
+    );
+  }
+}
+
+class ButtonItems extends StatelessWidget {
+  final Color warna;
+  final IconData ikon;
+  final VoidCallback onTap;
+  ButtonItems({required this.warna, required this.onTap, required this.ikon});
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: warna,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Center(
+              child: Icon(
+            ikon,
+            size: 20,
+          ))),
     );
   }
 }

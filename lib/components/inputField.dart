@@ -25,7 +25,7 @@ class inputFieldItem extends StatelessWidget {
         TextFormField(
           validator:requiredValidator,
           controller: controller,
-          autofocus: true,
+          autofocus: false,
           keyboardType: typeInput,
           textAlign: TextAlign.center,
           onChanged: value,

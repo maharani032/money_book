@@ -20,6 +20,7 @@ class _AddCreditState extends State<AddCredit> {
   String namaCredit = '';
   String jumlahCredit = '';
   late DateTime dateCredit = DateTime.now();
+  
   @override
   void initState() {
     _namaCredit.addListener(() {
@@ -46,7 +47,6 @@ class _AddCreditState extends State<AddCredit> {
 
   Widget build(BuildContext context) {
     final CreditDataBase _creditDB = CreditDataBase();
-
     return Flexible(
       child: Container(
         padding:
@@ -71,7 +71,8 @@ class _AddCreditState extends State<AddCredit> {
                     value: (value) {
                       namaCredit = value;
                     },
-                    typeInput: TextInputType.text),
+                    typeInput: TextInputType.text, 
+                    ),
                 inputFieldItem(
                     controller: _jumlahCredit,
                     nameInput: 'jumlah Pengeluaran',
@@ -96,7 +97,6 @@ class _AddCreditState extends State<AddCredit> {
                         onDateTimeChanged: (DateTime newDateTime) {
                           dateCredit = newDateTime;
                         },
-                        use24hFormat: false,
                         dateOrder: DatePickerDateOrder.dmy,
                       ),
                     )
@@ -104,6 +104,7 @@ class _AddCreditState extends State<AddCredit> {
                 ),
                 TextButton(
                     onPressed: () async {
+                      // print(dateCredit);
                       if (_formKey.currentState!.validate()) {
                         await _creditDB
                             .addCredit(
