@@ -8,16 +8,29 @@ import 'package:money_book/credits/UpdateCredit.dart';
 
 class ListCredit extends StatefulWidget {
   @override
-  _ListCreditState createState() => _ListCreditState();
+  ListCreditState createState() => ListCreditState();
 }
 
-class _ListCreditState extends State<ListCredit> {
+class ListCreditState extends State<ListCredit> {
+  // ignore: unused_field
+
   var format = NumberFormat('###,###,###,###');
   final FirebaseAuth user = FirebaseAuth.instance;
   var formatter = new DateFormat('yyyy-MM-dd');
 
   final CollectionReference credits =
       FirebaseFirestore.instance.collection('credits');
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,8 +41,6 @@ class _ListCreditState extends State<ListCredit> {
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            print(user.currentUser!.uid);
-            print(snapshot);
             return Center(
               child: Container(
                 child: Text('Data Kosong silakan masukkan data'),
@@ -42,8 +53,6 @@ class _ListCreditState extends State<ListCredit> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   final credit = snapshot.data!.docs[index];
-                  // ignore: unused_local_variable
-                  var datecredit = credit['date'];
                   String formatDate(DateTime datecredit) {
                     final DateFormat formatter = DateFormat.yMMMMd('en_US');
                     String date = formatter.format(datecredit);
@@ -76,12 +85,14 @@ class _ListCreditState extends State<ListCredit> {
                                     warna: Color(0xff54d179),
                                     onTap: () {
                                       showModalBottomSheet(
-                                        context: context, 
-                                        builder: (context)=>SingleChildScrollView(
-                                          child: Container(
-                                            child: UpdateCredit(creditId:id),
-                                          ),
-                                        ));
+                                          context: context,
+                                          builder: (context) =>
+                                              SingleChildScrollView(
+                                                child: Container(
+                                                  child: UpdateCredit(
+                                                      creditId: id),
+                                                ),
+                                              ));
                                     },
                                     ikon: Icons.drive_folder_upload_sharp),
                                 SizedBox(
@@ -95,7 +106,7 @@ class _ListCreditState extends State<ListCredit> {
                                           .doc(credit['id'])
                                           .delete();
                                     },
-                                    ikon: Icons.delete)
+                                    ikon: Icons.delete),
                               ])
 
                           // Text(credit['date'].toString())

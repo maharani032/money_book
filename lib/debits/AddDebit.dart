@@ -1,36 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:money_book/components/inputField.dart';
-import 'package:money_book/services/creditDB.dart';
 import 'package:intl/intl.dart';
+import 'package:money_book/components/inputField.dart';
+import 'package:money_book/services/debitDB.dart';
 
-class AddCredit extends StatefulWidget {
+class AddDebit extends StatefulWidget {
+  const AddDebit({Key? key}) : super(key: key);
+
   @override
-  _AddCreditState createState() => _AddCreditState();
+  _AddDebitState createState() => _AddDebitState();
 }
 
-class _AddCreditState extends State<AddCredit> {
-  // ignore: unused_field
+class _AddDebitState extends State<AddDebit> {
   var formatNum = NumberFormat('###,###,###,###');
   final format = DateFormat("dd-mm-yyyy");
   final _formKey = GlobalKey<FormState>();
-  final _namaCredit = TextEditingController();
-  final _jumlahCredit = TextEditingController();
-  String namaCredit = '';
-  String jumlahCredit = '';
-  late DateTime dateCredit = DateTime.now();
-  
+  final _namaDebit = TextEditingController();
+  final _jumlahDebit = TextEditingController();
+  String namaDebit = '';
+  String jumlahDebit = '';
+  late DateTime dateDebit = DateTime.now();
+
   @override
   void initState() {
-    _namaCredit.addListener(() {
+    _namaDebit.addListener(() {
       setState(() {
-        namaCredit = _namaCredit.text;
+        namaDebit = _namaDebit.text;
       });
     });
-    _jumlahCredit.addListener(() {
+    _jumlahDebit.addListener(() {
       setState(() {
         // _jumlahCredit.text = formatNum.format(jumlahCredit).replaceAll('', "");
-        jumlahCredit = _jumlahCredit.text;
+        jumlahDebit = _jumlahDebit.text;
       });
     });
     super.initState();
@@ -38,14 +39,15 @@ class _AddCreditState extends State<AddCredit> {
 
   @override
   void dispose() {
-    _namaCredit.dispose();
-    _jumlahCredit.dispose();
+    _namaDebit.dispose();
+    _jumlahDebit.dispose();
 
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
-    final CreditDataBase _creditDB = CreditDataBase();
+    final DebitDataBase _debitDB = DebitDataBase();
     return Flexible(
       child: Container(
         padding:
@@ -65,18 +67,17 @@ class _AddCreditState extends State<AddCredit> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 inputFieldItem(
-                    controller: _namaCredit,
-                    nameInput: 'Nama Pengeluaran',
+                    controller: _namaDebit,
+                    nameInput: 'Nama Pemasukan',
                     value: (value) {
-                      namaCredit = value;
+                      namaDebit = value;
                     },
-                    typeInput: TextInputType.text, 
-                    ),
+                    typeInput: TextInputType.text),
                 inputFieldItem(
-                    controller: _jumlahCredit,
-                    nameInput: 'jumlah Pengeluaran',
+                    controller: _jumlahDebit,
+                    nameInput: 'Jumlah Pemasukan',
                     value: (value) {
-                      jumlahCredit = value;
+                      jumlahDebit = value;
                     },
                     typeInput: TextInputType.number),
                 Column(
@@ -92,9 +93,9 @@ class _AddCreditState extends State<AddCredit> {
                       child: CupertinoDatePicker(
                         backgroundColor: Colors.black45,
                         mode: CupertinoDatePickerMode.date,
-                        initialDateTime: dateCredit,
+                        initialDateTime: dateDebit,
                         onDateTimeChanged: (DateTime newDateTime) {
-                          dateCredit = newDateTime;
+                          dateDebit = newDateTime;
                         },
                         dateOrder: DatePickerDateOrder.dmy,
                       ),
@@ -105,11 +106,11 @@ class _AddCreditState extends State<AddCredit> {
                     onPressed: () async {
                       // print(dateCredit);
                       if (_formKey.currentState!.validate()) {
-                        await _creditDB
-                            .addCredit(
-                                namaCredit: namaCredit,
-                                dateCredit: dateCredit,
-                                jumlah: int.parse(jumlahCredit))
+                        await _debitDB
+                            .addDebit(
+                                namaDebit: namaDebit,
+                                dateDebit: dateDebit,
+                                jumlah: int.parse(jumlahDebit))
                             .then((result) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

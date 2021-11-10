@@ -5,6 +5,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:money_book/home/page1.dart';
 import 'package:money_book/home/page2.dart';
 import 'package:money_book/home/page3.dart';
+import 'package:money_book/home/page4.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
   static String id = 'HomeScreen';
@@ -14,9 +15,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _page = 1;
+  int _page = 3;
  
-  final List<Widget> _children = [MyPage1(), MyPage2(), MyPage3()];
+  final List<Widget> _children = [MyPage1(), MyPage2(),MyPage4(), MyPage3()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,10 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: Color(0xff79B4B7),
-          index: 1,
+          index: 3,
           items: [
-            Icon(Icons.account_balance_wallet, size: 30),
+            Icon(Icons.attach_money_outlined, size: 30),
             Icon(Icons.add, size: 30),
+            Icon(Icons.savings_rounded,size: 30,),
             Icon(Icons.account_circle_outlined, size: 30),
           ],
           onTap: (index) {
