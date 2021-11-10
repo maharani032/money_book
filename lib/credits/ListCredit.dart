@@ -2,35 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
+import 'package:money_book/components/itembtn.dart';
 import 'package:money_book/credits/UpdateCredit.dart';
 
 class ListCredit extends StatefulWidget {
   @override
-  ListCreditState createState() => ListCreditState();
+  _ListCreditState createState() => _ListCreditState();
 }
 
-class ListCreditState extends State<ListCredit> {
-  // ignore: unused_field
-
+class _ListCreditState extends State<ListCredit> {
+  
   var format = NumberFormat('###,###,###,###');
   final FirebaseAuth user = FirebaseAuth.instance;
   var formatter = new DateFormat('yyyy-MM-dd');
 
   final CollectionReference credits =
       FirebaseFirestore.instance.collection('credits');
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -122,27 +110,3 @@ class ListCreditState extends State<ListCredit> {
   }
 }
 
-class ButtonItems extends StatelessWidget {
-  final Color warna;
-  final IconData ikon;
-  final VoidCallback onTap;
-  ButtonItems({required this.warna, required this.onTap, required this.ikon});
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: warna,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-          child: Center(
-              child: Icon(
-            ikon,
-            size: 20,
-          ))),
-    );
-  }
-}

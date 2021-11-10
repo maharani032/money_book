@@ -14,14 +14,14 @@ class DebitModel{
   DebitModel.fromData(Map<String, dynamic> data)
       : id = data['id'],
         userId = data['userId'],
-        namaDebit = data['namaCredit'],
+        namaDebit = data['namaDebit'],
         jumlah = data['jumlah'],
         date = data['date'];
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'userId': userId,
-      'namaCredit': namaDebit,
+      'namaDebit': namaDebit,
       'jumlah': jumlah,
       'date': date
     };

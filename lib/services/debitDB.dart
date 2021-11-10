@@ -31,4 +31,20 @@ class DebitDataBase{
       // ignore: invalid_return_type_for_catch_error
       .catchError((err) => print(err));
   }
+  Future getsum() async {
+    num sum = 0;
+    FirebaseAuth user = FirebaseAuth.instance;
+    String userId = user.currentUser!.uid;
+    return await debitDB
+        .where('userId', isEqualTo: userId)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+            querySnapshot.docs.forEach((item) {
+              sum = sum + item['jumlah'];
+           });
+          
+      
+      return sum;
+    });
+  }
 }

@@ -35,7 +35,7 @@ class CreditDataBase {
         .catchError((err) => print(err));
   }
 
-  Future  getsum() async {
+  Future getsum() async {
     num sum = 0;
     FirebaseAuth user = FirebaseAuth.instance;
     String userId = user.currentUser!.uid;

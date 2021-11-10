@@ -103,7 +103,6 @@ class _AddCreditState extends State<AddCredit> {
                 ),
                 TextButton(
                     onPressed: () async {
-                      // print(dateCredit);
                       if (_formKey.currentState!.validate()) {
                         await _creditDB
                             .addCredit(
