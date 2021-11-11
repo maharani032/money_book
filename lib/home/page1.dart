@@ -20,20 +20,22 @@ class _MyPage1State extends State<MyPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Text(
-            // _sum,
-            'Total Pengeluaran : ' + _sum,
-            style: TextStyle(fontSize: 16.0),
-          ),
-          Flexible(
-            child: Container(
-              decoration: BoxDecoration(),
-              child: ListCredit(),
+      body: Container(
+        child: Column(
+          children: [
+            Text(
+              // _sum,
+              'Total Pengeluaran : ' + _sum,
+              style: TextStyle(fontSize: 16.0),
             ),
-          ),
-        ],
+            Flexible(
+              child: Container(
+                decoration: BoxDecoration(),
+                child: ListCredit(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

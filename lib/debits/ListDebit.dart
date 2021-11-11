@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money_book/components/itembtn.dart';
+import 'package:money_book/debits/UpdateDebit.dart';
 
 class ListDebit extends StatefulWidget {
   @override
@@ -42,8 +43,6 @@ class _ListDebitState extends State<ListDebit> {
                     String date = formatter.format(datedebit);
                     return date;
                   }
-
-                  // ignore: unused_local_variable
                   final id = snapshot.data!.docs[index]['id'];
                   return ListTile(
                     title: Container(
@@ -64,7 +63,14 @@ class _ListDebitState extends State<ListDebit> {
                             children: [
                               ButtonItems(
                                   warna: Color(0xff54d179),
-                                  onTap: () {},
+                                  onTap: () {
+                                    showModalBottomSheet(context: context,
+                                    builder: (context)=>SingleChildScrollView(
+                                      child: Container(
+                                        child: UpdateDebit(debitId: id),
+                                      ),
+                                    ));
+                                  },
                                   ikon: Icons.drive_folder_upload_sharp),
                               SizedBox(
                                 width: 10,

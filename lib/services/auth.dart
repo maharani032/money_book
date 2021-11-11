@@ -20,6 +20,7 @@ class AuthService {
         .authStateChanges()
         .map((User? user) => _userFromFirebaseUser(user!));
   }
+
   // login in with email& password
   Future logInUser({required String email, required String password}) async {
     try {
@@ -48,9 +49,8 @@ class AuthService {
           email: email, password: password);
       await _firestoreService.createUser(
           Usermodel(id: result.user!.uid, email: email, fullname: fullname));
-
       User user = result.user!;
-      // return
+      print(user);
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
@@ -62,13 +62,23 @@ class AuthService {
       {required String email,
       required String password,
       required String fullname}) async {
-    await createUser(email: email, password: password, fullname: fullname);
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      await _firestoreService.createUser(
+          Usermodel(id: result.user!.uid, fullname: fullname, email: email));
+      User user = result.user!;
+      return _userFromFirebaseUser(user);
+      // await createUser(email: email, password: password, fullname: fullname);
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 
   // sign in with google
   Future logInwGoogle() async {
     try {
-      print('masuk try');
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
 

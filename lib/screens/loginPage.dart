@@ -23,14 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
-        // padding: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
+      body: Padding(padding: EdgeInsets.symmetric(horizontal: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
               child: Hero(
                 tag: 'logo',
                 child: Container(
@@ -48,61 +46,62 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 48.0,
             ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Flexible(
-                    child: TextFormField(
-                      validator: requiredValidator,
-                      keyboardType: TextInputType.emailAddress,
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        setState(() => email = value);
-                      },
-                      decoration: vTextFileDecoration.copyWith(
-                          hintText: 'Enter Your Email'),
-                    ),
+            Container(
+              child: Flexible(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: requiredValidator,
+                        keyboardType: TextInputType.emailAddress,
+                        textAlign: TextAlign.center,
+                        onChanged: (value) {
+                          setState(() => email = value);
+                        },
+                        decoration: vTextFileDecoration.copyWith(
+                            hintText: 'Enter Your Email'),
+                      ),
+                      SizedBox(height: 8.0),
+                      TextFormField(
+                        validator: requiredValidator,
+                        obscureText: true,
+                        textAlign: TextAlign.center,
+                        onChanged: (value) {
+                          setState(() => password = value);
+                        },
+                        decoration: vTextFileDecoration.copyWith(
+                            hintText: 'Enter Your Password'),
+                      ),
+                      
+                    ],
                   ),
-                  SizedBox(height: 8.0),
-                  Flexible(
-                    child: TextFormField(
-                      validator: requiredValidator,
-                      obscureText: true,
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        setState(() => password = value);
-                      },
-                      decoration: vTextFileDecoration.copyWith(
-                          hintText: 'Enter Your Password'),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
             RoundButton(
-                buttonTitle: 'Log In',
-                onPress: () async {
-                  if (_formKey.currentState!.validate()) {
-                    dynamic result=await _auth.logInUser(email: email, password: password);
-                    if(result==null){
-                      ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Data Invalid')),
-                    );
-                    }
-                    ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                    );
-                    Navigator.pushNamed(context, Wrapper.id);
-                  }
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Data Invalid')),
-                  );
-                },
-                warna: Colors.blueGrey),
-          ],
+                      buttonTitle: 'Log In',
+                      onPress: () async {
+                        if (_formKey.currentState!.validate()) {
+                          dynamic result=await _auth.logInUser(email: email, password: password);
+                          if(result==null){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Data Invalid')),
+                          );
+                          }
+                          ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Processing Data')),
+                          );
+                          Navigator.pushNamed(context, Wrapper.id);
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Data Invalid')),
+                        );
+                      },
+                      warna: Colors.blueGrey),
+        ],
         ),
-      ),
+      )
     );
   }
 }

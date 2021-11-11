@@ -50,55 +50,57 @@ class _ListCreditState extends State<ListCredit> {
                   final id = snapshot.data!.docs[index]['id'];
                   return ListTile(
                     title: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            credit['namaCredit'].toUpperCase(),
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          Text(
-                            format.format(credit['jumlah']).toString(),
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            formatDate(credit['date'].toDate()),
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ButtonItems(
-                                    warna: Color(0xff54d179),
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) =>
-                                              SingleChildScrollView(
-                                                child: Container(
-                                                  child: UpdateCredit(
-                                                      creditId: id),
-                                                ),
-                                              ));
-                                    },
-                                    ikon: Icons.drive_folder_upload_sharp),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                ButtonItems(
-                                    warna: Colors.red,
-                                    onTap: () {
-                                      FirebaseFirestore.instance
-                                          .collection('credits')
-                                          .doc(credit['id'])
-                                          .delete();
-                                    },
-                                    ikon: Icons.delete),
-                              ])
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              credit['namaCredit'].toUpperCase(),
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Text(
+                              format.format(credit['jumlah']).toString(),
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              formatDate(credit['date'].toDate()),
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ButtonItems(
+                                      warna: Color(0xff54d179),
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: (context) =>
+                                                SingleChildScrollView(
+                                                  child: Container(
+                                                    child: UpdateCredit(
+                                                        creditId: id),
+                                                  ),
+                                                ));
+                                      },
+                                      ikon: Icons.drive_folder_upload_sharp),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  ButtonItems(
+                                      warna: Colors.red,
+                                      onTap: () {
+                                        FirebaseFirestore.instance
+                                            .collection('credits')
+                                            .doc(credit['id'])
+                                            .delete();
+                                      },
+                                      ikon: Icons.delete),
+                                ])
 
-                          // Text(credit['date'].toString())
-                        ],
+                            // Text(credit['date'].toString())
+                          ],
+                        ),
                       ),
                     ),
                   );

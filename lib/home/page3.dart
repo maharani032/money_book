@@ -18,56 +18,58 @@ class _MyPage3State extends State<MyPage3> {
   }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-      Container(
-        height: 100,
-        child: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-    
-            children: [
-              Icon(Icons.person,size:50),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    _username,
-                    style: TextStyle(fontSize: 20),
-                    ),
-                ),
-              ),
-            ],
-          ),
-        )
-          ),
-          SizedBox(
-            height: 10,
-          ),
-      GestureDetector(
-        onTap: () async {
-          await _auth.logOut();
-        },
-        child: Container(
-            height: 50,
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+        Container(
+          height: 100,
+          child: Center(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
+      
               children: [
-                Icon(Icons.logout,size: 50,),
+                Icon(Icons.person,size:50),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      'Log Out',
+                      _username,
                       style: TextStyle(fontSize: 20),
-                    ),
+                      ),
                   ),
                 ),
               ],
-            )),
-      )
-    ]);
+            ),
+          )
+            ),
+            SizedBox(
+              height: 10,
+            ),
+        GestureDetector(
+          onTap: () async {
+            await _auth.logOut();
+          },
+          child: Container(
+              height: 50,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Icon(Icons.logout,size: 50,),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Log Out',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+        )
+      ]),
+    );
   }
 }
 

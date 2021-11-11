@@ -46,40 +46,42 @@ class _AddCreditState extends State<AddCredit> {
 
   Widget build(BuildContext context) {
     final CreditDataBase _creditDB = CreditDataBase();
-    return Flexible(
+    return Container(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Container(
-          padding: EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
+        padding: EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                inputFieldItem(
-                    controller: _namaCredit,
-                    nameInput: 'Nama Pengeluaran',
-                    value: (value) {
-                      namaCredit = value;
-                    },
-                    typeInput: TextInputType.text, 
-                    ),
-                inputFieldItem(
-                    controller: _jumlahCredit,
-                    nameInput: 'jumlah Pengeluaran',
-                    value: (value) {
-                      jumlahCredit = value;
-                    },
-                    typeInput: TextInputType.number),
-                Column(
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+             crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text('* scroll to down.',style: TextStyle(fontSize: 9),),
+
+              inputFieldItem(
+                  controller: _namaCredit,
+                  nameInput: 'Nama Pengeluaran',
+                  value: (value) {
+                    namaCredit = value;
+                  },
+                  typeInput: TextInputType.text, 
+                  ),
+              inputFieldItem(
+                  controller: _jumlahCredit,
+                  nameInput: 'jumlah Pengeluaran',
+                  value: (value) {
+                    jumlahCredit = value;
+                  },
+                  typeInput: TextInputType.number),
+              Container(
+                child: Column(
                   children: [
                     Text(
                       'Tanggal Transaksi (${format.pattern})',
@@ -101,29 +103,29 @@ class _AddCreditState extends State<AddCredit> {
                     )
                   ],
                 ),
-                TextButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await _creditDB
-                            .addCredit(
-                                namaCredit: namaCredit,
-                                dateCredit: dateCredit,
-                                jumlah: int.parse(jumlahCredit))
-                            .then((result) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Processing Add Data')),
-                          );
-                          Navigator.pop(context);
-                        }).catchError((onError) {
-                          print(onError);
-                          Navigator.pop(context);
-                        });
-                      }
-                    },
-                    child: Text('Tambah Pengeluaran'))
-              ],
-            ),
+              ),
+              TextButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      await _creditDB
+                          .addCredit(
+                              namaCredit: namaCredit,
+                              dateCredit: dateCredit,
+                              jumlah: int.parse(jumlahCredit))
+                          .then((result) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Processing Add Data')),
+                        );
+                        Navigator.pop(context);
+                      }).catchError((onError) {
+                        print(onError);
+                        Navigator.pop(context);
+                      });
+                    }
+                  },
+                  child: Text('Tambah Pengeluaran'))
+            ],
           ),
         ),
       ),
